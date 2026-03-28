@@ -1,0 +1,48 @@
+[
+    {
+        "dynamic_relative_url": "manjotkaurr31/Azure_DataWarehouse/refs/heads/main/data/Calendar.csv",
+        "bronze_sink_dynamic_folders": "calendar",
+        "bronze_sink_dynamic_files": "calendar.csv"
+    },
+    {
+        "dynamic_relative_url": "manjotkaurr31/Azure_DataWarehouse/refs/heads/main/data/Customers.csv",
+        "bronze_sink_dynamic_folders": "customers",
+        "bronze_sink_dynamic_files": "customers.csv"
+    },
+    {
+        "dynamic_relative_url": "manjotkaurr31/Azure_DataWarehouse/refs/heads/main/data/Product_Categories.csv",
+        "bronze_sink_dynamic_folders": "product_categories",
+        "bronze_sink_dynamic_files": "product_categories.csv"
+    },
+    {
+        "dynamic_relative_url": "manjotkaurr31/Azure_DataWarehouse/refs/heads/main/data/Product_Subcategories.csv",
+        "bronze_sink_dynamic_folders": "product_subcategories",
+        "bronze_sink_dynamic_files": "product_subcategories.csv"
+    },
+    {
+        "dynamic_relative_url": "manjotkaurr31/Azure_DataWarehouse/refs/heads/main/data/Returns.csv",
+        "bronze_sink_dynamic_folders": "returns",
+        "bronze_sink_dynamic_files": "returns.csv"
+    },
+    {
+        "dynamic_relative_url": "manjotkaurr31/Azure_DataWarehouse/refs/heads/main/data/Sales_2015.csv",
+        "bronze_sink_dynamic_folders": "sales_2015",
+        "bronze_sink_dynamic_files": "sales_2015.csv"
+    },
+    {
+        "dynamic_relative_url": "manjotkaurr31/Azure_DataWarehouse/refs/heads/main/data/Sales_2016.csv",
+        "bronze_sink_dynamic_folders": "sales_2016",
+        "bronze_sink_dynamic_files": "sales_2016.csv"
+    },
+    {
+        "dynamic_relative_url": "manjotkaurr31/Azure_DataWarehouse/refs/heads/main/data/Sales_2017.csv",
+        "bronze_sink_dynamic_folders": "sales_2017",
+        "bronze_sink_dynamic_files": "sales_2017.csv"
+    },
+    {
+        "dynamic_relative_url": "manjotkaurr31/Azure_DataWarehouse/refs/heads/main/data/Territories.csv",
+        "bronze_sink_dynamic_folders": "territories",
+        "bronze_sink_dynamic_files": "territories.csv"
+    }
+
+]
