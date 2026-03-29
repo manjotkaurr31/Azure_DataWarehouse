@@ -1,16 +1,13 @@
 -- Azure Synapse Analytics Serverless SQL database - script
--- =========================================
--- GOLD LAYER — CETAS
--- =========================================
 
 -- 1. SCHEMA
 IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'gold')
     EXEC('CREATE SCHEMA gold');
 GO
 
--- =========================================
--- 2. EXTERNAL DATA SOURCES
--- =========================================
+
+    
+    -- 2. EXTERNAL DATA SOURCES
 IF NOT EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'SilverData')
     CREATE EXTERNAL DATA SOURCE SilverData
     WITH (
@@ -25,9 +22,9 @@ IF NOT EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'GoldData')
     );
 GO
 
--- =========================================
--- 3. FILE FORMAT
--- =========================================
+
+    
+    -- 3. FILE FORMAT
 IF NOT EXISTS (SELECT * FROM sys.external_file_formats WHERE name = 'ParquetFormat')
     CREATE EXTERNAL FILE FORMAT ParquetFormat
     WITH (
@@ -35,9 +32,10 @@ IF NOT EXISTS (SELECT * FROM sys.external_file_formats WHERE name = 'ParquetForm
     );
 GO
 
--- =========================================
--- 4. DROP EXISTING EXTERNAL TABLES
--- =========================================
+
+    
+    
+    -- 4. DROP EXISTING EXTERNAL TABLES
 IF OBJECT_ID('gold.fact_sales')      IS NOT NULL DROP EXTERNAL TABLE gold.fact_sales;
 GO
 IF OBJECT_ID('gold.fact_returns')    IS NOT NULL DROP EXTERNAL TABLE gold.fact_returns;
@@ -51,9 +49,10 @@ GO
 IF OBJECT_ID('gold.dim_calendar')    IS NOT NULL DROP EXTERNAL TABLE gold.dim_calendar;
 GO
 
--- =========================================
--- 5. FACT: SALES
--- =========================================
+
+    
+    
+    -- 5. FACT: SALES
 CREATE EXTERNAL TABLE gold.fact_sales
 WITH (
     LOCATION    = 'fact_sales/',
@@ -73,9 +72,9 @@ FROM OPENROWSET(
 ) AS s;
 GO
 
--- =========================================
--- 6. FACT: RETURNS
--- =========================================
+
+    
+    -- 6. FACT: RETURNS
 CREATE EXTERNAL TABLE gold.fact_returns
 WITH (
     LOCATION    = 'fact_returns/',
@@ -95,9 +94,10 @@ FROM OPENROWSET(
 ) AS r;
 GO
 
--- =========================================
+
+    
+    
 -- 7. DIMENSION: CUSTOMERS
--- =========================================
 CREATE EXTERNAL TABLE gold.dim_customers
 WITH (
     LOCATION    = 'dim_customers/',
@@ -116,9 +116,10 @@ FROM OPENROWSET(
     FORMAT      = 'PARQUET') AS c;
 GO
 
--- =========================================
+
+    
+    
 -- 8. DIMENSION: PRODUCTS
--- =========================================
 CREATE EXTERNAL TABLE gold.dim_products
 WITH (
     LOCATION    = 'dim_products/',
@@ -153,9 +154,10 @@ FROM OPENROWSET(
     FORMAT      = 'PARQUET') AS t;
 GO
 
--- =========================================
+
+    
+    
 -- 10. DIMENSION: CALENDAR
--- =========================================
 CREATE EXTERNAL TABLE gold.dim_calendar
 WITH (
     LOCATION    = 'dim_calendar/',
