@@ -1,4 +1,4 @@
-# End-to-End Azure Data Engineering: GitHub to Analytical Data Warehouse
+# End-to-End Azure Data Engineering: Azure Data Warehouse
 
 This project demonstrates a production-grade **Medallion Architecture** (Bronze $\to$ Silver $\to$ Gold) built entirely within the Microsoft Azure ecosystem. It automates the extraction of raw retail data from a GitHub HTTP source, processes it using Apache Spark, and models it into a high-performance Star Schema for Business Intelligence.
 
