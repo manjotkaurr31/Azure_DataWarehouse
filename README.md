@@ -17,6 +17,14 @@ Before building the pipelines, the following Azure resources and configurations 
 6.  **Azure Synapse Analytics (`adwhmk31asa`):** Enterprise analytics service used for the SQL-based serving layer.
 7.  **Microsoft Entra ID (formerly Azure AD):** Used for creating Service Principals and managing identities for secure resource access.
 
+<p align="center">
+  <img src="Images/resources.png" width="600" alt="all resources inside resource group">
+</p>
+
+<p align="center">
+  <img src="Images/containers.png" width="600" alt="all containers inside storage account">
+</p>
+
 ---
 
 ## 🛠️ Phase 1: Data Ingestion (Bronze Layer)
@@ -35,6 +43,10 @@ The ingestion phase moves raw CSV files from GitHub to the Data Lake. I implemen
     * **Lookup Activity:** Reads the metadata file located at `bronze/DynamicGitToRaw.json`.
     * **ForEach Activity:** Iterates through the JSON array.
     * **Copy Activity:** Dynamically injects `dynamic_relative_url`, `dynamic_folder_name`, and `dynamic_file_name` into the datasets.
+ 
+<p align="center">
+  <img src="Images/pipeline_dataflow_diagram.png" width="600">
+</p>
 
 **Metadata Control File (`bronze/DynamicGitToRaw.json`):**
 ```json
@@ -60,8 +72,14 @@ Once the data landed in the **Bronze** container, the goal shifted to refining t
 
 ### 2.1 Compute and Environment
 * **Resource:** Provisioned an Azure Databricks instance within the `Azure_Datawarehouse` resource group.
+<p align="center">
+  <img src="Images/databricks_configuration.png" width="600" >
+</p>
 * **Cluster Configuration:** Created `adwhmk31's cluster` using the **17.3 LTS** runtime, which includes **Apache Spark 4.0.0** and **Scala 2.13**.
 * **Node Type:** Utilized a `Standard_DC4as_v5` node (16 GB Memory, 4 Cores) configured as a single-node cluster to optimize for the project's data volume.
+<p align="center">
+  <img src="Images/cluster_configuration" width="600" alt="all resources inside resource group">
+</p>
 
 ### 2.2 Advanced Access Control (Identity & Access Management)
 To bridge the gap between Databricks and the Storage Account without using insecure hardcoded keys, I implemented a **Service Principal** workflow:
@@ -69,6 +87,10 @@ To bridge the gap between Databricks and the Storage Account without using insec
 2.  **Secret Management:** Generated a **Client Secret** (Secret Key) within the app registration to facilitate programmatic authentication.
 3.  **RBAC Assignment:** Navigated to the **Access Control (IAM)** settings of the `adwhmk31` storage account and assigned the **Storage Blob Data Contributor** role to the `awdhmk31-app` identity.
 4.  **Verification:** This configuration granted the Databricks cluster the specific permissions required to read from `bronze` and write to `silver`.
+
+<p align="center">
+  <img src="Images/role_assignments.png" width="600" >
+</p>
 
 ### 2.3 Spark Transformation Logic
 The core processing is handled by the PySpark notebook located at `silver/silver_nb.ipynb`.
@@ -83,6 +105,9 @@ The core processing is handled by the PySpark notebook located at `silver/silver
 ## 🏛️ Phase 3: Data Modeling & Serving (Gold Layer)
 
 The final phase involved structuring the data for consumption by end-users (Data Analysts and BI Developers) using **Azure Synapse Analytics** (`adwhmk31asa`).
+<p align="center">
+  <img src="Images/synapse_configuration.png" width="600" >
+</p>
 
 ### 3.1 Seamless Security with Managed Identity
 Unlike Phase 2, which used a Service Principal "middleman," Synapse offers a more streamlined approach through **Managed Identity (MSI)**:
@@ -90,6 +115,9 @@ Unlike Phase 2, which used a Service Principal "middleman," Synapse offers a mor
 2.  **Role Assignment:** I assigned the **Storage Blob Data Contributor** role directly to the `adwhmk31asa` resource via the storage account's IAM panel.
 3.  **Personal Access:** I also assigned the same role to my own account to allow for manual data exploration and script execution.
 4.  **Result:** This created a "passwordless" environment where Synapse could natively interact with the Data Lake.
+<p align="center">
+  <img src="Images/role_assignments.png" width="600" >
+</p>
 
 ### 3.2 Dimensional Modeling (Star Schema)
 I designed a robust **Star Schema** to provide a high-performance structure for analytical queries.
@@ -99,6 +127,9 @@ I designed a robust **Star Schema** to provide a high-performance structure for 
     * `DIM_PRODUCTS`: Product details including names and prices.
     * `DIM_CALENDAR`: Time-intelligence attributes (Year, Quarter, Month).
     * `DIM_TERRITORIES`: Geographic attributes (Region, Country, Continent).
+<p align="center">
+  <img src="gold/schema.png" width="600" >
+</p>
 
 ### 3.3 Data Serving via CETAS
 Using **Serverless SQL Pools**, I developed the SQL script located at `gold/script.sql`.
