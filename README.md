@@ -60,7 +60,10 @@ The ingestion phase moves raw CSV files from GitHub to the Data Lake. I implemen
         "dynamic_relative_url": "manjotkaurr31/Azure_DataWarehouse/refs/heads/main/data/Sales_2017.csv",
         "bronze_sink_dynamic_folders": "sales_2017",
         "bronze_sink_dynamic_files": "sales_2017.csv"
-    },{...}
+    },
+    {
+        ...
+    }
 ]
 ```
 
