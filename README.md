@@ -81,7 +81,7 @@ Once the data landed in the **Bronze** container, the goal shifted to refining t
 * **Node Type:** Utilized a `Standard_DC4as_v5` node (16 GB Memory, 4 Cores) configured as a single-node cluster to optimize for the project's data volume.
 
 <p align="center">
-  <img src="Images/cluster_configuration" width="600"
+  <img src="Images/cluster_configuration.png" width="600"
 </p>
 
 ### 2.2 Advanced Access Control (Identity & Access Management)
