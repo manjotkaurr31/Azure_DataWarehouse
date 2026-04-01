@@ -72,11 +72,14 @@ Once the data landed in the **Bronze** container, the goal shifted to refining t
 
 ### 2.1 Compute and Environment
 * **Resource:** Provisioned an Azure Databricks instance within the `Azure_Datawarehouse` resource group.
+
 <p align="center">
   <img src="Images/databricks_configuration.png" width="600" >
 </p>
+
 * **Cluster Configuration:** Created `adwhmk31's cluster` using the **17.3 LTS** runtime, which includes **Apache Spark 4.0.0** and **Scala 2.13**.
 * **Node Type:** Utilized a `Standard_DC4as_v5` node (16 GB Memory, 4 Cores) configured as a single-node cluster to optimize for the project's data volume.
+
 <p align="center">
   <img src="Images/cluster_configuration" width="600"
 </p>
