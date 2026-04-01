@@ -48,7 +48,7 @@ The ingestion phase moves raw CSV files from GitHub to the Data Lake. I implemen
   <img src="Images/pipeline_dataflow_diagram.png" width="600">
 </p>
 
-**Metadata Control File (`bronze/DynamicGitToRaw.json`):**
+**Metadata Control File (`bronze/DynamicGitToRaw.json`):** A demo snippet from the file is shown below.
 ```json
 [
     {
@@ -60,9 +60,6 @@ The ingestion phase moves raw CSV files from GitHub to the Data Lake. I implemen
         "dynamic_relative_url": "manjotkaurr31/Azure_DataWarehouse/refs/heads/main/data/Sales_2017.csv",
         "bronze_sink_dynamic_folders": "sales_2017",
         "bronze_sink_dynamic_files": "sales_2017.csv"
-    },
-    {
-        ...
     }
 ]
 ```
